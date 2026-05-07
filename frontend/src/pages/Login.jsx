@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 
-const API = "http://localhost:8080/api/auth";
+const API = "https://localhost:8443/api/auth";
 
 export default function Login({ onLogin }) {
   const { theme, isDark, toggle } = useTheme();

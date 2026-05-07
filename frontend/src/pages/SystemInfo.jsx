@@ -15,7 +15,7 @@ export default function SystemInfo() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    authFetch("http://localhost:8080/api/system-info")
+    authFetch("https://localhost:8443/api/system-info")
       .then(r => { if (!r.ok) throw new Error(); return r.json(); })
       .then(setInfo)
       .catch(() => setError(true));

@@ -32,7 +32,7 @@ export default function SuggestionPanel({ cpu, memPercent }) {
     setCleaning(true);
     setCleanLog(null);
     try {
-      const res = await fetch("http://localhost:8080/api/cleanup", { method: "POST" });
+      const res = await fetch("https://localhost:8443/api/cleanup", { method: "POST" });
       const data = await res.json();
       setCleanLog(data.log);
     } catch {

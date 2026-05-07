@@ -23,7 +23,7 @@ export default function NetworkMonitor() {
   const checkPing = async () => {
     const start = Date.now();
     try {
-      await fetch("http://localhost:8080/api/auth/verify", {
+      await fetch("https://localhost:8443/api/auth/verify", {
         method: "GET", headers: { Authorization: `Bearer ${localStorage.getItem("flux-token")}` }
       });
       const ms = Date.now() - start;

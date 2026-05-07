@@ -27,7 +27,7 @@ export default function Processes() {
 
   const fetchProcs = () => {
     setLoading(true); setError(false);
-    authFetch("http://localhost:8080/api/processes")
+    authFetch("https://localhost:8443/api/processes")
       .then(r => { if (!r.ok) throw new Error("Auth failed"); return r.json(); })
       .then(d => { setProcs(Array.isArray(d) ? d : []); setLoading(false); })
       .catch(() => { setError(true); setLoading(false); });
@@ -43,7 +43,7 @@ export default function Processes() {
     if (!window.confirm(`Kill "${name}" (PID ${pid})?\n\nThis will force-stop the process.`)) return;
     setKilling(pid);
     try {
-      await authFetch(`http://localhost:8080/api/processes/${pid}`, { method: "DELETE" });
+      await authFetch(`https://localhost:8443/api/processes/${pid}`, { method: "DELETE" });
       setTimeout(fetchProcs, 500);
     } catch {}
     setKilling(null);
@@ -52,7 +52,7 @@ export default function Processes() {
   const optimize = async () => {
     setOptimizing(true); setOptResult(null);
     try {
-      const res = await authFetch("http://localhost:8080/api/processes/optimize-memory", { method: "POST" });
+      const res = await authFetch("https://localhost:8443/api/processes/optimize-memory", { method: "POST" });
       const d = await res.json();
       setOptResult(d);
     } catch { setOptResult({ status: "error", actions: ["⚠️ Backend error"] }); }

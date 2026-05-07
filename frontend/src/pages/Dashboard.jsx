@@ -22,7 +22,7 @@ function MemoryOptimizer({ memPercent }) {
     setLog(["🔄 Starting memory optimization..."]);
     try {
       const token = localStorage.getItem("flux-token");
-      const res = await fetch("http://localhost:8080/api/processes/optimize-memory", {
+      const res = await fetch("https://localhost:8443/api/processes/optimize-memory", {
         method: "POST",
         headers: token ? { Authorization: `Bearer ${token}` } : {}
       });

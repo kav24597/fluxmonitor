@@ -11,7 +11,7 @@ export default function useWebSocket() {
     const token = localStorage.getItem("flux-token");
     if (!token) return;
 
-    const socket = new SockJS("http://localhost:8080/ws");
+    const socket = new SockJS("https://localhost:8443/ws");
     const client = Stomp.over(socket);
     client.debug = null;
     const headers = { Authorization: `Bearer ${token}` };

@@ -51,7 +51,7 @@ export default function Cleanup({ data }) {
 
   const scanFiles = () => {
     setLoading(true);
-    authFetch("http://localhost:8080/api/large-files")
+    authFetch("https://localhost:8443/api/large-files")
       .then(r => r.json())
       .then(d => { setFiles(Array.isArray(d) ? d : []); setLoading(false); })
       .catch(e => { console.error("File scan error:", e); setFiles([]); setLoading(false); });
@@ -60,7 +60,7 @@ export default function Cleanup({ data }) {
   const runClean = async (type) => {
     setCleaning(true); setCleanType(type); setLog([]); setShowLog(true);
     try {
-      const res = await authFetch("http://localhost:8080/api/cleanup", {
+      const res = await authFetch("https://localhost:8443/api/cleanup", {
         method: "POST",
         body: JSON.stringify({ type }),
       });
@@ -78,7 +78,7 @@ export default function Cleanup({ data }) {
     const logs = [];
     for (const path of selected) {
       try {
-        const res = await authFetch("http://localhost:8080/api/delete-file", {
+        const res = await authFetch("https://localhost:8443/api/delete-file", {
           method: "DELETE",
           body: JSON.stringify({ path }),
         });
