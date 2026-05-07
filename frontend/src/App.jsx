@@ -33,26 +33,14 @@ function BgOrbs() {
   );
 }
 
-function AppInner() {
+function AuthenticatedApp({ user, onLogout }) {
   const data = useWebSocket();
   const { theme } = useTheme();
-  const [user, setUser] = useState(() => localStorage.getItem("flux-user"));
-  const [token, setToken] = useState(() => localStorage.getItem("flux-token"));
-
-  const handleLogin = (u, t) => { setUser(u); setToken(t); };
-  const handleLogout = () => {
-    localStorage.removeItem("flux-token");
-    localStorage.removeItem("flux-user");
-    setUser(null); setToken(null);
-  };
-
-  if (!user || !token) return <Login onLogin={handleLogin} />;
-
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: theme.bg }}>
       <BgOrbs />
       <div style={{ position: "relative", zIndex: 2, display: "flex", width: "100%" }}>
-        <Sidebar liveData={data} user={user} onLogout={handleLogout} />
+        <Sidebar liveData={data} user={user} onLogout={onLogout} />
         <main style={{ flex: 1, overflowY: "auto", minHeight: "100vh" }}>
           <Routes>
             <Route path="/" element={<Dashboard data={data} />} />
@@ -69,6 +57,19 @@ function AppInner() {
       </div>
     </div>
   );
+}
+
+function AppInner() {
+  const [user, setUser] = useState(() => localStorage.getItem("flux-user"));
+  const [token, setToken] = useState(() => localStorage.getItem("flux-token"));
+  const handleLogin = (u, t) => { setUser(u); setToken(t); };
+  const handleLogout = () => {
+    localStorage.removeItem("flux-token");
+    localStorage.removeItem("flux-user");
+    setUser(null); setToken(null);
+  };
+  if (!user || !token) return <Login onLogin={handleLogin} />;
+  return <AuthenticatedApp user={user} onLogout={handleLogout} />;
 }
 
 export default function App() {
