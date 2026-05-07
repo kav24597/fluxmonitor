@@ -1,0 +1,5 @@
+backend/monitor/target/
+frontend/node_modules/
+frontend/.env
+*.jar
+*.class
