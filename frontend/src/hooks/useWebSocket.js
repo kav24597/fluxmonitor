@@ -9,10 +9,12 @@ export default function useWebSocket() {
 
   useEffect(() => {
     const token = localStorage.getItem("flux-token");
+    if (!token) return;
+
     const socket = new SockJS("http://localhost:8080/ws");
     const client = Stomp.over(socket);
     client.debug = null;
-    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    const headers = { Authorization: `Bearer ${token}` };
     client.connect(headers, () => {
       client.subscribe("/topic/metrics", msg => setData(JSON.parse(msg.body)));
     });
